@@ -1,20 +1,46 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, ScrollView, Button } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  ScrollView,
+  Button,
+} from "react-native";
 
 const App = () => {
-  let nom = "ASHUZA";
-  var prenom = "Pascal";
-  const postnom = "Kasumbe";
-
-  const [nombre, setNombre] = useState(100);
-
   return (
     <ScrollView style={styles.container}>
+      <Text style={styles.main}> Listes des produits</Text>
+
+      <View style={styles.pictureBox}>
+        <Image
+          style={styles.picture}
+          source={{
+            uri: "https://i.pinimg.com/736x/e2/cb/29/e2cb29cd11f0ea5513b4dc0cc9842087.jpg",
+          }}
+        />
+      </View>
+
       <View style={styles.box}>
-        <Text style={styles.title}>yekola {nombre} </Text>
-        <Text style={styles.title}> {nom} </Text>
-        <Text style={styles.title}>kala mingi te {prenom} </Text>
-        <Button title="Valider" onPress={() => setNombre(   nombre + 5000 )}></Button>
+        <View style={styles.item1}> </View>
+        <View style={styles.item2}></View>
+        <View style={styles.item3}> </View>
+        <View style={styles.item4}></View>
+      </View>
+
+      <View style={styles.box}>
+        <View style={styles.item1}> </View>
+        <View style={styles.item2}></View>
+        <View style={styles.item3}> </View>
+        <View style={styles.item4}></View>
+      </View>
+
+      <View style={styles.box}>
+        <View style={styles.item1}> </View>
+        <View style={styles.item2}></View>
+        <View style={styles.item3}> </View>
+        <View style={styles.item4}></View>
       </View>
     </ScrollView>
   );
@@ -23,33 +49,65 @@ const App = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#0FF",
-    padding: 20,
-    // margin: 10,
+    backgroundColor: "#C41C57",
+    padding: 10,
   },
-  title: {
-    color: "white",
-    fontSize: 34,
-    fontWeight: "bold",
-    marginTop: 20,
-    textTransform: "uppercase",
-    backgroundColor: "black",
+  box: {
+    backgroundColor: "white",
+    height: 400,
+    width: "auto",
+    margin: 10,
+    // padding: 20,
+    // marginRight : 20,
+
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  item1: {
+    backgroundColor: "blue",
+    height: 100,
+    width: 50,
   },
 
-  box: {
-    backgroundColor: "#F50A7B",
+  item2: {
+    backgroundColor: "red",
+    height: 100,
+    width: 50,
+  },
+  item3: {
+    backgroundColor: "yellow",
+    height: 100,
+    width: 50,
+  },
+  item4: {
+    backgroundColor: "green",
+    height: 100,
+    width: 50,
+  },
+  main: {
+    backgroundColor: "white",
+    fontWeight: 900,
+    fontSize: 30,
+    textAlign: "center",
+    color: "blue",
+    textTransform: "capitalize",
+  },
+  pictureBox: {
+    backgroundColor: "blue",
     width: "auto",
     height: 300,
-    padding: 20,
-    borderRadius: 50,
-    marginTop: 30,
-
-    // margin : 70,
-    // padding :40,
+    borderRadius: 20,
+    overflow: "hidden",
   },
 
-  main: {
-    color: "red",
+  picture: {
+    // width: 150,
+    // height: 150,
+    width: "auto",
+    height: "100%",
+    resizeMode: "stretch",
   },
 });
 
