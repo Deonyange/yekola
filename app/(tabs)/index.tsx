@@ -1,148 +1,159 @@
-import React, { useState } from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  FlatList,
-  StyleSheet,
-  Alert,
-} from "react-native";
+import React from 'react';
+import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 
 const App = () => {
-  const [name, setName] = useState("");
-  const [participants, setParticipants] = useState([]);
-
-  // Ajouter un participant
-  const addParticipant = () => {
-    if (name.trim() === "") {
-      Alert.alert("Erreur", "Le nom ne peut pas être vide !");
-      return;
-    }
-
-    const newParticipant = { id: Date.now().toString(), name, present: false };
-    setParticipants([...participants, newParticipant]);
-    setName("");
-  };
-
-  // Marquer comme présent ou absent
-  const togglePresence = (id) => {
-    const updatedParticipants = participants.map((participant) =>
-      participant.id === id
-        ? { ...participant, present: !participant.present }
-        : participant
-    );
-    setParticipants(updatedParticipants);
-  };
-
-  // Rendu de chaque participant
-  const renderParticipant = ({ item }) => (
-    <View style={styles.participant}>
-      <Text style={styles.participantName}>{item.name}</Text>
-      <TouchableOpacity
-        style={[
-          styles.presenceButton,
-          { backgroundColor: item.present ? "#4CAF50" : "#F44336" },
-        ]}
-        onPress={() => togglePresence(item.id)}
-      >
-        <Text style={styles.presenceButtonText}>
-          {item.present ? "Présent" : "Absent"}
-        </Text>
-      </TouchableOpacity>
-    </View>
-  );
-
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Gestion de Présence</Text>
-
-      {/* Ajouter un participant */}
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="Entrez le nom du participant"
-          value={name}
-          onChangeText={setName}
-        />
-        <TouchableOpacity style={styles.addButton} onPress={addParticipant}>
-          <Text style={styles.addButtonText}>Ajouter</Text>
+    <ScrollView style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.headerText}>Discover</Text>
+        <TouchableOpacity style={styles.searchIcon}>
+          <Text>🔍</Text>
         </TouchableOpacity>
       </View>
-
-      {/* Liste des participants */}
-      <FlatList
-        data={participants}
-        renderItem={renderParticipant}
-        keyExtractor={(item) => item.id}
-        style={styles.list}
-      />
-    </View>
+      <View style={styles.specialOffer}>
+        <Image
+          source={{ uri: 'https://i.pinimg.com/236x/c2/00/87/c200877d51efe688d6abff22dc66330a.jpg' }}
+          style={styles.specialOfferImage}
+        />
+        <Text style={styles.specialOfferText}>Special Offer</Text>
+      </View>
+      <View style={styles.browseSection}>
+        <Text style={styles.browseTitle}>Browse Categories</Text>
+        <View style={styles.categories}>
+          <Text style={styles.category}>Shoes</Text>
+          <Text style={styles.category}>Headset</Text>
+          <Text style={styles.category}>Lifestyle</Text>
+          <Text style={styles.category}>Accessories</Text>
+        </View>
+      </View>
+      <View style={styles.flashSale}>
+        <Text style={styles.flashSaleTitle}>Flash Sale</Text>
+        <View style={styles.flashSaleItems}>
+          <View style={styles.flashSaleItem}>
+            <Image
+              source={{ uri: 'https://i.pinimg.com/236x/c2/00/87/c200877d51efe688d6abff22dc66330a.jpg' }}
+              style={styles.flashSaleImage}
+            />
+            <Text style={styles.flashSaleItemText}>Air Jordan XXX</Text>
+            <Text style={styles.flashSalePrice}>$200.00</Text>
+          </View>
+          <View style={styles.flashSaleItem}>
+            <Image
+              source={{ uri: 'https://i.pinimg.com/736x/8f/f6/ae/8ff6aeb7cae3a32b37a9cae44ad55612.jpg' }} // Remplacez par une URL valide
+              style={styles.flashSaleImage}
+            />
+            <Text style={styles.flashSaleItemText}>Apple Smart Watch</Text>
+            <Text style={styles.flashSalePrice}>$110.00</Text>
+          </View>
+        </View>
+      </View>
+      <View style={styles.scanningSection}>
+        <Image
+          source={{ uri: 'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/5fd41b9a-fdad-4773-9070-91c1b31348b4/NIKE+DUNK+HI+RETRO+SE.jpg' }} // Remplacez par une URL valide
+          style={styles.scanningImage}
+        />
+        <View style={styles.productDetail}>
+          <Text style={styles.productName}>Nike High Top Shoe</Text>
+          <Text style={styles.productRating}>6.0 (7.1k reviews)</Text>
+        </View>
+      </View>
+    </ScrollView>
   );
 };
 
-// Styles
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f4f4f4",
-    padding: 20,
+    backgroundColor: 'white',
   },
-  title: {
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 16,
+  },
+  headerText: {
     fontSize: 24,
-    fontWeight: "bold",
-    textAlign: "center",
-    marginBottom: 20,
+    fontWeight: 'bold',
   },
-  inputContainer: {
-    flexDirection: "row",
-    marginBottom: 20,
+  searchIcon: {
+    fontSize: 24,
   },
-  input: {
-    flex: 1,
-    borderWidth: 1,
-    borderColor: "#ddd",
-    borderRadius: 5,
-    padding: 10,
-    backgroundColor: "#fff",
+  specialOffer: {
+    padding: 16,
+    backgroundColor: '#f8f8f8',
   },
-  addButton: {
-    backgroundColor: "#007BFF",
-    padding: 10,
-    borderRadius: 5,
-    marginLeft: 10,
+  specialOfferImage: {
+    width: '100%',
+    height: 200,
+    resizeMode: 'cover',
   },
-  addButtonText: {
-    color: "#fff",
-    fontWeight: "bold",
+  specialOfferText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginTop: 8,
   },
-  list: {
-    marginTop: 10,
+  browseSection: {
+    padding: 16,
   },
-  participant: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    backgroundColor: "#fff",
-    padding: 15,
-    marginBottom: 10,
-    borderRadius: 5,
-    borderWidth: 1,
-    borderColor: "#ddd",
+  browseTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
   },
-  participantName: {
+  categories: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginTop: 8,
+  },
+  category: {
     fontSize: 16,
-    fontWeight: "bold",
   },
-  presenceButton: {
-    padding: 10,
-    borderRadius: 5,
+  flashSale: {
+    padding: 16,
   },
-  presenceButtonText: {
-    color: "#fff",
-    fontWeight: "bold",
+  flashSaleTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  flashSaleItems: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginTop: 8,
+  },
+  flashSaleItem: {
+    alignItems: 'center',
+  },
+  flashSaleImage: {
+    width: 100,
+    height: 100,
+    resizeMode: 'cover',
+  },
+  flashSaleItemText: {
+    fontSize: 16,
+    marginTop: 8,
+  },
+  flashSalePrice: {
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  scanningSection: {
+    padding: 16,
+  },
+  scanningImage: {
+    width: '50%',
+    height: 200,
+    resizeMode: 'cover',
+  },
+  productDetail: {
+    marginTop: 16,
+  },
+  productName: {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  productRating: {
+    fontSize: 16,
+    color: '#666',
   },
 });
 
 export default App;
-
